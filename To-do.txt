@@ -1,0 +1,5 @@
+ - Wrap the async function in a try{} catch{}.
+
+ - Decide the size you want your movies to be. Whether to have more or less movies in one row.
+
+ -
