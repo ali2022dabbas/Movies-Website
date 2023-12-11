@@ -1,43 +1,82 @@
 const API_URL = "https://api.tvmaze.com/shows";
+const SEARCH_API = "https://api.tvmaze.com/search/shows?q=";
 
-const main = document.querySelector("main");
+const main = document.getElementById("main");
+const form = document.getElementById("form");
+const search = document.getElementById("search");
 
-async function getMovies() {
-    try {
-  const res = await fetch(API_URL);
-  const resData = await res.json();
+// movies that appear when website is opened
+getMovies(API_URL);
 
-  console.log(resData);
+async function getMovies(url) {
+  const res = await fetch(url);
+  resData = await res.json();
+  showMovies(resData);
+}
 
-  resData.forEach((movie) => {
+//show movies when app opens
+function showMovies(movies) {
+  main.innerHTML = "";
+  movies.forEach((movie) => {
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
     movieEl.innerHTML = ` <img src="${movie.image.medium}" alt="${
       movie.name
     }">  
+  <div class="movie-info">
+      <h3>${movie.name}</h3>
+      <span class="${getClassByRate(movie.rating.average)}">
+      ${movie.rating.average}</span>
+  </div> `;
+
+    main.appendChild(movieEl);
+  });
+}
+
+//search movies
+function searchMovies(movies) {
+  main.innerHTML = "";
+  movies.forEach((movie) => {
+    const movieEl = document.createElement("div");
+    movieEl.classList.add("movie");
+    movieEl.innerHTML = ` <img src="${movie.show.image.medium}" alt="${
+      movie.name
+    }">  
     <div class="movie-info">
         <h3>${movie.name}</h3>
-        <span class="${getClassByRate(movie.rating.average)}">
-        ${movie.rating.average}</span>
+        <span class="${getClassByRate(movie.show.rating.average)}">
+        ${movie.show.rating.average}</span>
     </div> `;
 
     main.appendChild(movieEl);
   });
-
-  return resData;
-} catch {
-    throw new Error("Oh no! There seems to be an error:")
-}
 }
 
-function getClassByRate(vote) {
-  if (vote >= 8) {
+function getClassByRate(rating) {
+  if (rating >= 8) {
     return "green";
-  } else if (vote >= 5) {
+  } else if (rating >= 5) {
     return "orange";
   } else {
     return "red";
   }
 }
 
-getMovies();
+async function getMoviesSearch(url) {
+  const res = await fetch(url);
+  resData = await res.json();
+  searchMovies(resData);
+}
+
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const searchTerm = search.value;
+
+  if (searchTerm) {
+    getMoviesSearch(SEARCH_API + searchTerm);
+
+    search.value = "";
+  }
+});

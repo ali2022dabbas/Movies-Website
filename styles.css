@@ -11,6 +11,30 @@ body {
   font-size: 0.9rem;
 }
 
+header {
+  background-color: rgba(79, 97, 190, 0.29);
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.8rem;
+}
+
+.search {
+  background-color: transparent;
+  border: 2px solid #030821;
+  border-radius: 50px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+.search::placeholder {
+  color: #7084e7;
+}
+.search:focus {
+  background-color: #030821;
+  outline: none;
+}
+
 main {
   display: flex;
   flex-wrap: wrap;
@@ -20,10 +44,9 @@ main {
   background-color: rgba(79, 97, 190, 0.29);
   border-radius: 15px;
   box-shadow: 0px 6px 6px rgb(81, 0, 255);
+  overflow: hidden;
   margin: 0.8rem;
-  width: 290px;
-  /* margin: 0.8rem; */
-  /* width: 225px; */
+  width: 225px;
 }
 
 .movie img {
@@ -46,6 +69,7 @@ main {
 .movie-info span {
   background-color: rgba(32, 76, 114, 0.626);
   border-radius: 3px;
+  font-weight: bold;
   padding: 0.25rem 0.5rem;
 }
 
