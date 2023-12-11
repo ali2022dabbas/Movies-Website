@@ -27,9 +27,13 @@ function showMovies(movies) {
       <h3>${movie.name}</h3>
       <span class="${getClassByRate(movie.rating.average)}">
       ${movie.rating.average}</span>
-  </div> `;
-
+  </div> 
+  <div class="overview">  
+    ${movie.summary}
+  </div>
+  `;
     main.appendChild(movieEl);
+    console.log(movie)
   });
 }
 
@@ -39,16 +43,15 @@ function searchMovies(movies) {
   movies.forEach((movie) => {
     const movieEl = document.createElement("div");
     movieEl.classList.add("movie");
-    movieEl.innerHTML = ` <img src="${movie.show.image.medium}" alt="${
-      movie.name
-    }">  
+    movieEl.innerHTML = ` 
+    <img src="${movie.show.image.medium}" alt="${movie.show.name}">  
     <div class="movie-info">
-        <h3>${movie.name}</h3>
+        <h3>${movie.show.name}</h3>
         <span class="${getClassByRate(movie.show.rating.average)}">
         ${movie.show.rating.average}</span>
     </div> `;
-
     main.appendChild(movieEl);
+    console.log(movies)
   });
 }
 
